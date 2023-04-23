@@ -2,6 +2,8 @@
 % Michael Allen, Cullen Hirstius, Hayden Payne
 % 4/21/23
 
+clc; clear; close all;
+
 %% Scenario 1
 %gap in between pot and stove
 heatTransferArray1 = [];
@@ -65,6 +67,11 @@ for H = .01:.01:.3
     pot2 = (sigma*T_pot^4 - J_2)*(epsilon_pot * A_pot) / (1-epsilon_pot) == A_pot * (F_pot_stove*(J_2-J_1) + F_pot_surr*(J_2-J_3));
     surroundings3 = J_3 == (sigma)*T_surr^4;
     soln = solve([stove1 pot2 surroundings3], [J_1 J_2 J_3]);
+
+    if H > .099 && H < .101
+       disp("Scenario 1 Radioosity Values");
+       disp([soln.J_1 soln.J_2 soln.J_3]);
+    end
     
     q_pot = (sigma*T_pot^4 - soln.J_2)*(epsilon_pot * A_pot) / (1-epsilon_pot);
     heatTransferArray1 = [heatTransferArray1, q_pot];
@@ -134,6 +141,12 @@ for H = .01:.01:.3
     pot2 = (sigma*T_pot^4 - J_2)*(epsilon_pot * A_pot) / (1-epsilon_pot) == A_pot * (F_pot_stove*(J_2-J_1) + F_pot_foil*(J_2-J_3));
     foil3 = (sigma*T_foil^4 - J_3)*(epsilon_foil * A_foil) / (1-epsilon_foil) == A_foil * (F_foil_stove*(J_3-J_1) + F_foil_pot*(J_3-J_2));
     soln = solve([stove1 pot2 foil3], [J_1 J_2 J_3]);
+
+
+     if H > .099 && H < .101
+       disp("Scenario 2 Radioosity Values");
+       disp([soln.J_1 soln.J_2 soln.J_3]);
+    end
     
     q_pot = (sigma*T_pot^4 - soln.J_2)*(epsilon_pot * A_pot) / (1-epsilon_pot);
     heatTransferArray2 = [heatTransferArray2, q_pot];
@@ -203,6 +216,11 @@ for H = .01:.01:.3
     pot2 = (sigma*T_pot^4 - J_2)*(epsilon_pot * A_pot) / (1-epsilon_pot) == A_pot * (F_pot_stove*(J_2-J_1) + F_pot_shroud*(J_2-J_3));
     shroud3 = (sigma*T_shroud^4 - J_3)*(epsilon_shroud * A_shroud) / (1-epsilon_shroud) == A_shroud * (F_shroud_stove*(J_3-J_1) + F_shroud_pot*(J_3-J_2));
     soln = solve([stove1 pot2 shroud3], [J_1 J_2 J_3]);
+
+   if H > .099 && H < .101
+       disp("Scenario 3 Radioosity Values");
+       disp([soln.J_1 soln.J_2 soln.J_3]);
+    end
     
     q_pot = (sigma*T_pot^4 - soln.J_2)*(epsilon_pot * A_pot) / (1-epsilon_pot);
     heatTransferArray3 = [heatTransferArray3, q_pot];
